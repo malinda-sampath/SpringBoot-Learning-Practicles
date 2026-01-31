@@ -54,6 +54,7 @@
 			<artifactId>hibernate-types-60</artifactId>
 			<version>2.21.1</version>
 		</dependency>
+		<!--Lombok-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -65,6 +66,13 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.7.0</version>
 		</dependency>
+		<!--Model mapper-->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

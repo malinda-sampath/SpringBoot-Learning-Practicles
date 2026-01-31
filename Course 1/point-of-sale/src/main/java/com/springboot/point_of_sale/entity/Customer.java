@@ -12,7 +12,7 @@ public class Customer {
 
     @Id
     @Column(name = "customer_id",length=45)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int customerId;
 
     @Column(name = "customer_name",length = 100,nullable = false)
