@@ -25,7 +25,7 @@ public class ItemController {
 
     @GetMapping(path = "/get-by-name",params = "name")
     public List<ItemResponseDTO> getByName(@RequestParam(value = "name") String itemName){
-        return itemService.getByName(itemName);
+        return itemService.getByNameByMapstruct(itemName);
     }
 
     @GetMapping(path = "/get-all-items")

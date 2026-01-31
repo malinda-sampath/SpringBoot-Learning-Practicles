@@ -9,4 +9,5 @@ public interface ItemService {
     String save(ItemRequestDTO itemRequestDTO);
     List<ItemResponseDTO> getAllItems();
     List<ItemResponseDTO> getByName(String itemName);
+    List<ItemResponseDTO> getByNameByMapstruct(String itemName);
 }

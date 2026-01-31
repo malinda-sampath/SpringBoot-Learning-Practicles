@@ -5,6 +5,7 @@ import com.springboot.point_of_sale.dto.response.ItemResponseDTO;
 import com.springboot.point_of_sale.entity.Item;
 import com.springboot.point_of_sale.repo.ItemRepo;
 import com.springboot.point_of_sale.service.ItemService;
+import com.springboot.point_of_sale.util.mappers.ItemMapper;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -18,10 +19,16 @@ public class ItemServiceIMPL implements ItemService {
 
     private final ItemRepo itemRepo;
     private final ModelMapper modelMapper;
+    private final ItemMapper itemMapper;
 
-    public ItemServiceIMPL(ItemRepo itemRepo,ModelMapper modelMapper) {
+    public ItemServiceIMPL(
+            ItemRepo itemRepo,
+            ModelMapper modelMapper,
+            ItemMapper itemMapper
+    ) {
         this.itemRepo = itemRepo;
         this.modelMapper = modelMapper;
+        this.itemMapper = itemMapper;
     }
 
     @Override
@@ -54,6 +61,16 @@ public class ItemServiceIMPL implements ItemService {
         List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName,true);
         if (!item.isEmpty()) {
             return modelMapper.map(item,new TypeToken<List<ItemResponseDTO>>(){}.getType());
+        } else {
+            throw new RuntimeException("Item is not active");
+        }
+    }
+
+    @Override
+    public List<ItemResponseDTO> getByNameByMapstruct(String itemName) {
+        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName,true);
+        if (!item.isEmpty()) {
+            return itemMapper.entityListTODTOList(item);
         } else {
             throw new RuntimeException("Item is not active");
         }
