@@ -6,12 +6,9 @@ import com.springboot.point_of_sale.entity.Item;
 import com.springboot.point_of_sale.repo.ItemRepo;
 import com.springboot.point_of_sale.service.ItemService;
 import com.springboot.point_of_sale.util.mappers.ItemMapper;
-import com.sun.jdi.request.DuplicateRequestException;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,47 +29,44 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public String save(ItemRequestDTO itemRequestDTO) {
-        Item item = modelMapper.map(itemRequestDTO,Item.class);
-        if (!itemRepo.existsById(item.getItemID())){
-            itemRepo.save(item);
-            return "Item saved";
-        } else {
-            throw new DuplicateRequestException("Item already exist");
-        }
+    public void save(ItemRequestDTO itemRequestDTO) {
+        itemRepo.save(itemMapper.dtoToEntity(itemRequestDTO));
     }
 
     @Override
     public List<ItemResponseDTO> getAllItems() {
         List<Item> itemList = itemRepo.findAll();
-        if(!itemList.isEmpty()){
-            List<ItemResponseDTO> itemResponseDTOS = new ArrayList<>();
-            for ( Item item : itemList ) {
-                itemResponseDTOS.add(modelMapper.map(item,ItemResponseDTO.class));
-            }
-            return itemResponseDTOS;
-        } else {
-            throw new RuntimeException("No items found");
-        }
+        return itemMapper.entityListTODTOList(itemList);   // returns empty list if none
     }
 
     @Override
     public List<ItemResponseDTO> getByName(String itemName) {
-        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName,true);
-        if (!item.isEmpty()) {
-            return modelMapper.map(item,new TypeToken<List<ItemResponseDTO>>(){}.getType());
-        } else {
-            throw new RuntimeException("Item is not active");
-        }
+        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName, true);
+        return itemMapper.entityListTODTOList(item);
     }
 
-    @Override
-    public List<ItemResponseDTO> getByNameByMapstruct(String itemName) {
-        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName,true);
-        if (!item.isEmpty()) {
-            return itemMapper.entityListTODTOList(item);
-        } else {
-            throw new RuntimeException("Item is not active");
-        }
-    }
+    //Model Mapper
+//    @Override
+//    public List<ItemResponseDTO> getAllItems() {
+//        List<Item> itemList = itemRepo.findAll();
+//        if(!itemList.isEmpty()){
+//            List<ItemResponseDTO> itemResponseDTOS = new ArrayList<>();
+//            for ( Item item : itemList ) {
+//                itemResponseDTOS.add(modelMapper.map(item,ItemResponseDTO.class));
+//            }
+//            return itemResponseDTOS;
+//        } else {
+//            throw new RuntimeException("No items found");
+//        }
+//    }
+
+//    @Override
+//    public List<ItemResponseDTO> getByName(String itemName) {
+//        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName,true);
+//        if (!item.isEmpty()) {
+//            return modelMapper.map(item,new TypeToken<List<ItemResponseDTO>>(){}.getType());
+//        } else {
+//            throw new RuntimeException("Item is not active");
+//        }
+//    }
 }
