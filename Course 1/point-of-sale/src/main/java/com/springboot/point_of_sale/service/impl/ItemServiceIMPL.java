@@ -1,5 +1,6 @@
 package com.springboot.point_of_sale.service.impl;
 
+import com.springboot.point_of_sale.dto.paginated.PaginatedResponseDTO;
 import com.springboot.point_of_sale.dto.request.ItemRequestDTO;
 import com.springboot.point_of_sale.dto.response.ItemResponseDTO;
 import com.springboot.point_of_sale.entity.Item;
@@ -7,6 +8,8 @@ import com.springboot.point_of_sale.repo.ItemRepo;
 import com.springboot.point_of_sale.service.ItemService;
 import com.springboot.point_of_sale.util.mappers.ItemMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,15 +37,29 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public List<ItemResponseDTO> getAllItems() {
-        List<Item> itemList = itemRepo.findAll();
-        return itemMapper.entityListTODTOList(itemList);   // returns empty list if none
+    public PaginatedResponseDTO<List<ItemResponseDTO>> getAllItems(int page, int size) {
+        Page<Item> itemPage = itemRepo.findAll(PageRequest.of(page, size));
+        List<ItemResponseDTO> dtoList = itemMapper.entityListTODTOList(itemPage.getContent()); // itemPage.getContent() extracts the entity list from Page<Item>
+        return new PaginatedResponseDTO<>(
+                itemPage.getTotalElements(),
+                itemPage.getTotalPages(),
+                itemPage.getNumber(),
+                itemPage.getSize(),
+                dtoList
+        );
     }
 
     @Override
-    public List<ItemResponseDTO> getByName(String itemName) {
-        List<Item> item = itemRepo.getAllByItemNameAndActiveState(itemName, true);
-        return itemMapper.entityListTODTOList(item);
+    public PaginatedResponseDTO<List<ItemResponseDTO>> getByName(String itemName, int page, int size) {
+        Page<Item> itemPage = itemRepo.getAllByItemNameAndActiveState(itemName, true, PageRequest.of(page, size));
+        List<ItemResponseDTO> dtoList = itemMapper.entityListTODTOList(itemPage.getContent());
+        return new PaginatedResponseDTO<>(
+                itemPage.getTotalElements(),
+                itemPage.getTotalPages(),
+                itemPage.getNumber(),
+                itemPage.getSize(),
+                dtoList
+        );
     }
 
     //Model Mapper
