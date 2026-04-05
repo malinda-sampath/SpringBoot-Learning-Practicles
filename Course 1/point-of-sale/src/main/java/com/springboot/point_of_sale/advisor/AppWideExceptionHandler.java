@@ -1,5 +1,6 @@
 package com.springboot.point_of_sale.advisor;
 
+import com.springboot.point_of_sale.exception.InsufficientStockException;
 import com.springboot.point_of_sale.exception.NotFoundException;
 import com.springboot.point_of_sale.util.response.ResponseBuilder;
 import com.springboot.point_of_sale.util.response.StandardResponse;
@@ -13,5 +14,10 @@ public class AppWideExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<StandardResponse<String>> handleNotFoundException(NotFoundException e) {
         return ResponseBuilder.notFound(e.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<StandardResponse<String>> handleStockException(InsufficientStockException e) {
+        return ResponseBuilder.error(HttpStatus.BAD_REQUEST, e.getMessage(), null);
     }
 }
