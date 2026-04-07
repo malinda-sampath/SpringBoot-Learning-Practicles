@@ -1,7 +1,10 @@
 package com.springboot.point_of_sale.service.impl;
 
+import com.springboot.point_of_sale.dto.paginated.PaginatedResponseDTO;
+import com.springboot.point_of_sale.dto.queryInterface.OrderDetailsInterface;
 import com.springboot.point_of_sale.dto.request.OrderDetailsSaveDTO;
 import com.springboot.point_of_sale.dto.request.OrderSaveDTO;
+import com.springboot.point_of_sale.dto.response.OrderDetailsDTO;
 import com.springboot.point_of_sale.entity.Customer;
 import com.springboot.point_of_sale.entity.Item;
 import com.springboot.point_of_sale.entity.Order;
@@ -15,6 +18,8 @@ import com.springboot.point_of_sale.repo.OrderRepo;
 import com.springboot.point_of_sale.service.OrderService;
 import com.springboot.point_of_sale.util.mappers.OrderDetailMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -91,5 +96,19 @@ public class OrderServiceIMPL implements OrderService {
 
         orderDetailsRepo.saveAll(orderDetailsList);
 
+    }
+
+    @Override
+    public PaginatedResponseDTO<List<OrderDetailsDTO>> getAllOrders(boolean status, int page, int size) {
+        Page<OrderDetailsInterface> orderDetailsDTOPage = orderRepo.getAllOrderDetails(status, PageRequest.of(page, size));
+        List<OrderDetailsDTO> orderDetailsDTOList = orderDetailMapper.interfaceListToDTOList(orderDetailsDTOPage.getContent());
+
+        return new PaginatedResponseDTO<>(
+                orderDetailsDTOPage.getTotalElements(),
+                orderDetailsDTOPage.getTotalPages(),
+                orderDetailsDTOPage.getNumber(),
+                orderDetailsDTOPage.getSize(),
+                orderDetailsDTOList
+        );
     }
 }

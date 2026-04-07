@@ -20,6 +20,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
 
+    @Column(name = "active_state",columnDefinition = "TINYINT default 1")
+    private boolean activeState;
+
     @ManyToOne
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
