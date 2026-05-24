@@ -21,7 +21,7 @@ public class DepartmentController {
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<StandardResponse<DepartmentDTO>> saveDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<StandardResponse<Void>> saveDepartment(@RequestBody DepartmentDTO departmentDTO) {
         departmentService.saveDepartment(departmentDTO);
         return ResponseBuilder.created(
                 "Department saved successfully",
