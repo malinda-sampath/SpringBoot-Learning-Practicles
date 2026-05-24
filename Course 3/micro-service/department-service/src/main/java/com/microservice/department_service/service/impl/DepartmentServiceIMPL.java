@@ -31,4 +31,10 @@ public class DepartmentServiceIMPL implements DepartmentService {
         List<Department> departments = departmentRepo.findAll();
         return departmentMapper.entityListToDtoList(departments);
     }
+
+    @Override
+    public DepartmentDTO getDepartmentByCode(String code) {
+        Department department = departmentRepo.getByDepartmentCode(code);
+        return departmentMapper.entityToDto(department);
+    }
 }

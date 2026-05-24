@@ -10,5 +10,7 @@ import java.util.List;
 public interface DepartmentMapper {
     Department dtoToEntity(DepartmentDTO departmentDTO);
 
+    DepartmentDTO entityToDto(Department department);
+
     List<DepartmentDTO> entityListToDtoList(List<Department> departments);
 }

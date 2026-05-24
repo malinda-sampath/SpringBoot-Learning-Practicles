@@ -29,6 +29,14 @@ public class DepartmentController {
         );
     }
 
+    @GetMapping(path = "get-by-code",params = "code")
+    public ResponseEntity<StandardResponse<DepartmentDTO>> getDepartmentByCode(@RequestParam(value = "code") String code){
+        return ResponseBuilder.ok(
+                "Department retrieved successfully",
+                departmentService.getDepartmentByCode(code)
+        );
+    }
+
     @GetMapping(path = "get-all")
     public ResponseEntity<StandardResponse<List<DepartmentDTO>>> getAllDepartment(){
         return ResponseBuilder.ok(

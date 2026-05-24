@@ -8,4 +8,6 @@ public interface DepartmentService {
     void saveDepartment(DepartmentDTO departmentDTO);
 
     List<DepartmentDTO> getAllDepartment();
+
+    DepartmentDTO getDepartmentByCode(String code);
 }
