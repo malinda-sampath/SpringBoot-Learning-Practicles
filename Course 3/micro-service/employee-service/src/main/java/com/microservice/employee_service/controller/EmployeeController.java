@@ -5,10 +5,9 @@ import com.microservice.employee_service.service.EmployeeService;
 import com.microservice.employee_service.utill.response.ResponseBuilder;
 import com.microservice.employee_service.utill.response.StandardResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/employee")
@@ -26,6 +25,22 @@ public class EmployeeController {
         return ResponseBuilder.created(
                 "Employee saved successfully",
                 null
+        );
+    }
+
+    @GetMapping(path = "get-by-id",params = "id")
+    public ResponseEntity<StandardResponse<EmployeeDTO>> getEmployeeById(@RequestParam(value = "id") int id){
+        return ResponseBuilder.ok(
+                "Employee retrieved successfully",
+                employeeService.getEmployeeById(id)
+        );
+    }
+
+    @GetMapping(path = "get-all")
+    public ResponseEntity<StandardResponse<List<EmployeeDTO>>> getAllEmployees(){
+        return ResponseBuilder.ok(
+                "Employees retrieved successfully",
+                employeeService.getAllEmployee()
         );
     }
 }
