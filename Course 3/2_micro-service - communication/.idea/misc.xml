@@ -4,8 +4,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/employee-service/pom.xml" />
-        <option value="$PROJECT_DIR$/department-service/pom.xml" />
+        <option value="$PROJECT_DIR$/2_webClient/employee-service/pom.xml" />
+        <option value="$PROJECT_DIR$/2_webClient/department-service/pom.xml" />
+        <option value="$PROJECT_DIR$/3_springCloud/employee-service/pom.xml" />
+        <option value="$PROJECT_DIR$/3_springCloud/department-service/pom.xml" />
       </list>
     </option>
   </component>
