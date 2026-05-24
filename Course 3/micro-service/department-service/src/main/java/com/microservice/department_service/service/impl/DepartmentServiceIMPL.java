@@ -5,7 +5,11 @@ import com.microservice.department_service.entity.Department;
 import com.microservice.department_service.repository.DepartmentRepo;
 import com.microservice.department_service.service.DepartmentService;
 import com.microservice.department_service.utill.mappers.DepartmentMapper;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class DepartmentServiceIMPL implements DepartmentService {
 
     private final DepartmentMapper departmentMapper;
@@ -17,8 +21,14 @@ public class DepartmentServiceIMPL implements DepartmentService {
     }
 
     @Override
-    public DepartmentDTO saveDepartment(DepartmentDTO departmentDTO) {
+    public void saveDepartment(DepartmentDTO departmentDTO) {
         Department department = departmentMapper.dtoToEntity(departmentDTO);
-        return departmentMapper.entityToDto(departmentRepo.save(department));
+        departmentRepo.save(department);
+    }
+
+    @Override
+    public List<DepartmentDTO> getAllDepartment() {
+        List<Department> departments = departmentRepo.findAll();
+        return departmentMapper.entityListToDtoList(departments);
     }
 }

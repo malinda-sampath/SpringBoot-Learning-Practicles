@@ -1,9 +1,11 @@
 package com.microservice.department_service.service;
 
 import com.microservice.department_service.dto.DepartmentDTO;
-import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
 public interface DepartmentService {
-    DepartmentDTO saveDepartment(DepartmentDTO departmentDTO);
+    void saveDepartment(DepartmentDTO departmentDTO);
+
+    List<DepartmentDTO> getAllDepartment();
 }
