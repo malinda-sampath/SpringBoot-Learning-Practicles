@@ -1,5 +1,6 @@
 package com.microservice.employee_service.service;
 
+import com.microservice.employee_service.dto.ApiResponseDTO;
 import com.microservice.employee_service.dto.EmployeeDTO;
 
 import java.util.List;
@@ -9,5 +10,5 @@ public interface EmployeeService {
 
     List<EmployeeDTO> getAllEmployee();
 
-    EmployeeDTO getEmployeeById(int id);
+    ApiResponseDTO getEmployeeById(int id);
 }
