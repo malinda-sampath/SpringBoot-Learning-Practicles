@@ -1,5 +1,6 @@
 package com.microservice.employee_service.controller;
 
+import com.microservice.employee_service.dto.ApiResponseDTO;
 import com.microservice.employee_service.dto.EmployeeDTO;
 import com.microservice.employee_service.service.EmployeeService;
 import com.microservice.employee_service.utill.response.ResponseBuilder;
@@ -29,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "get-by-id",params = "id")
-    public ResponseEntity<StandardResponse<EmployeeDTO>> getEmployeeById(@RequestParam(value = "id") int id){
+    public ResponseEntity<StandardResponse<ApiResponseDTO>> getEmployeeById(@RequestParam(value = "id") int id){
         return ResponseBuilder.ok(
                 "Employee retrieved successfully",
                 employeeService.getEmployeeById(id)
