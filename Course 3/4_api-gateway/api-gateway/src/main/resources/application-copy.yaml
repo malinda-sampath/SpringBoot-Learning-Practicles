@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+
+            # =========================
+            # EMPLOYEE SERVICE
+            # POST ->  /employees
+            # GET  ->  /employees/{id}
+            # GET  ->  /employees
+            # =========================
+
+            - id: employee
+              uri: lb://EMPLOYEE-SERVICE
+              predicates:
+                - Path=/api/employee/**
+                - Method=GET,POST
+
+            # =========================
+            # DEPARTMENT SERVICE
+            # POST ->  /departments
+            # GET  ->  /departments/{id}
+            # GET  ->  /departments
+            # =========================
+
+            - id: department
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/api/department/**
+                - Method=GET,POST
+
+server:
+  port: 9191
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
