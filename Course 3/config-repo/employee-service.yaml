@@ -23,4 +23,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 employee:
-  message: "Hello from Config Server v1"
+  message: "Hello from Config Server v1 changed"
