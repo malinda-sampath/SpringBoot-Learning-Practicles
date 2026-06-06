@@ -22,3 +22,5 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+employee:
+  message: "Hello from Config Server v1"
