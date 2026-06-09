@@ -55,8 +55,6 @@ spring:
                 - Path=/api/department/get-all
                 - Method=GET
 
-
-
 server:
   port: 9191
 
