@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: CONFIG-SERVER
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/malinda-sampath/SpringBoot-Learning-Practicles
+          default-label: microservice
+          clone-on-start: true
+          search-paths: Course 3/config-repo
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

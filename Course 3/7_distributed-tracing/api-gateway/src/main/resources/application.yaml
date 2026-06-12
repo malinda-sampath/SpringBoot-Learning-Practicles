@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+
+            # =========================
+            # EMPLOYEE SERVICE
+            # =========================
+
+            - id: employee-save
+              uri: lb://EMPLOYEE-SERVICE
+              predicates:
+                - Path=/api/employee/save
+                - Method=POST
+
+            - id: employee-get-by-id
+              uri: lb://EMPLOYEE-SERVICE
+              predicates:
+                - Path=/api/employee/get-by-id
+                - Method=GET
+                - Query=id
+
+            - id: employee-get-all
+              uri: lb://EMPLOYEE-SERVICE
+              predicates:
+                - Path=/api/employee/get-all
+                - Method=GET
+
+
+            # =========================
+            # DEPARTMENT SERVICE
+            # =========================
+
+            - id: department-save
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/api/department/save
+                - Method=POST
+
+            - id: department-get-by-code
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/api/department/get-by-code
+                - Method=GET
+                - Query=code
+
+            - id: department-get-all
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/api/department/get-all
+                - Method=GET
+
+server:
+  port: 9191
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
