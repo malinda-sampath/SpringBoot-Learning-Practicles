@@ -20,3 +20,8 @@ spring:
 
 server:
   port: 8081
+
+security:
+  jwt:
+    secret-key: ZMjjlEd2hQD/NtRqhlrbhSwyPBJLsKXx9QOwEfxNiFg=
+    expiration-time: 3600000
