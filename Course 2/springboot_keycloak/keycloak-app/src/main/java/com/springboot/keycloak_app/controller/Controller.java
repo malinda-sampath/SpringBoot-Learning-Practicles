@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 
 public class Controller {
-    @GetMapping
+    @GetMapping("/public")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("Hello!");
     }

@@ -68,6 +68,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> {})
                 .authorizeHttpRequests((authorize)-> authorize
+                        .requestMatchers("/api/v1/public").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(
                         (oauth2)-> oauth2.jwt(
