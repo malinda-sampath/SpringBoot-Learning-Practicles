@@ -49,7 +49,14 @@ function App({ keycloak }: Props) {
 
       <div style={styles.buttonRow}>
         <button
-          style={styles.button}
+          style={{ ...styles.button, background: "green" }}
+          onClick={() => callApi("http://localhost:8080/api/v1/public")}
+          disabled={loading}
+        >
+          Call PUBLIC API
+        </button>
+        <button
+          style={{ ...styles.button, background: "blue" }}
           onClick={() => callApi("http://localhost:8080/api/v1/user")}
           disabled={!token || loading}
         >
